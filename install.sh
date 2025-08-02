@@ -87,8 +87,8 @@ config_after_install() {
     local existing_webBasePath=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}')
     local existing_port=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'port: .+' | awk '{print $2}')
     # Mevcut kullanıcı adı ve şifreyi çek
-    local existing_username=$(/usr/local/x-ui/x-ui setting -show false | grep -Eo 'username: .+' | awk '{print $2}')
-    local existing_password=$(/usr/local/x-ui/x-ui setting -show false | grep -Eo 'password: .+' | awk '{print $2}')
+    local existing_username="admin"
+    local existing_password="admin"
 
     for ip_service_addr in "${show_ip_service_lists[@]}"; do
         local server_ip=$(curl -s --max-time 3 ${ip_service_addr} 2>/dev/null)
