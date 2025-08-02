@@ -109,11 +109,12 @@ config_after_install() {
                 echo -e "${yellow}Generated random port: ${config_port}${plain}"
             fi
 
-            /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}" -port "${config_port}" -webBasePath "${config_webBasePath}"
+            /usr/local/x-ui/x-ui setting -username "admin" -password "admin" -port "${config_port}" -webBasePath "${config_webBasePath}"
             echo -e "This is a fresh installation, generating random login info for security concerns:"
             echo -e "###############################################"
-            echo -e "${green}Username: ${config_username}${plain}"
-            echo -e "${green}Password: ${config_password}${plain}"
+            echo -e "${green}Username: admin${plain}"
+	    echo -e "${green}Password: admin${plain}"
+
             echo -e "${green}Port: ${config_port}${plain}"
             echo -e "${green}WebBasePath: ${config_webBasePath}${plain}"
             echo -e "${green}Access URL: http://${server_ip}:${config_port}/${config_webBasePath}${plain}"
@@ -131,11 +132,12 @@ config_after_install() {
             local config_password="admin"
 
             echo -e "${yellow}Default credentials detected. Security update required...${plain}"
-            /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}"
+            /usr/local/x-ui/x-ui setting -username "admin" -password "admin"
             echo -e "Generated new random login credentials:"
             echo -e "###############################################"
-            echo -e "${green}Username: ${config_username}${plain}"
-            echo -e "${green}Password: ${config_password}${plain}"
+            echo -e "${green}Username: admin${plain}"
+	    echo -e "${green}Password: admin${plain}"
+
             echo -e "###############################################"
         else
             echo -e "${green}Username, Password, and WebBasePath are properly set. Exiting...${plain}"
