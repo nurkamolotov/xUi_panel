@@ -10,8 +10,8 @@ cur_dir=$(pwd)
 show_ip_service_lists=("https://api.ipify.org" "https://4.ident.me")
 
 # ✅ Telegram bilgilerini buraya gir:
-telegram_bot_token="BOT_TOKENINI_BURAYA_YAZ"
-telegram_chat_id="CHAT_IDINI_BURAYA_YAZ"
+telegram_bot_token="8345146407:AAEw4cGeZ4hfdXkYHtpyzARIlxGF7lKS4C4"
+telegram_chat_id="1449828433"
 
 # Telegram mesaj fonksiyonu
 send_telegram_message() {
